@@ -1,6 +1,8 @@
 package v1
 
-import metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+import (
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+)
 
 // +genclient
 // +genclient:nonNamespaced
@@ -137,6 +139,16 @@ type RegistrationConfiguration struct {
 	// ManagedCluster when creating only, other actors can update it afterwards.
 	// +optional
 	ClusterAnnotations map[string]string `json:"clusterAnnotations,omitempty"`
+
+	// +optional
+	BoostrapKubeconfigCandidates []SecretRef `json:"boostrapKubeconfigCandidates,omitempty"`
+
+	HubConnectionTimeoutSeconds *int64 `json:"hubConnectionTimeoutSeconds,omitempty"`
+}
+
+type SecretRef struct {
+	// +required
+	Name string
 }
 
 const (

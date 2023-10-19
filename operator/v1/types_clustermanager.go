@@ -93,6 +93,11 @@ type RegistrationHubConfiguration struct {
 	// +optional
 	AutoApproveUsers []string `json:"autoApproveUsers,omitempty"`
 
+	// CleanUpNotLeaderHub represents whether to clean up the managed cluster resources if current hub is not the leader hub of the managed cluster.
+	// +optional
+	// +kubebuilder:default=true
+	CleanUpNotLeaderHubCleanUpAfterSwitch bool `json:"cleanUpNotLeaderHub,omitempty"`
+
 	// FeatureGates represents the list of feature gates for registration
 	// If it is set empty, default feature gates will be used.
 	// If it is set, featuregate/Foo is an example of one item in FeatureGates:

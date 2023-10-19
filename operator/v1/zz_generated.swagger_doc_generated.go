@@ -122,8 +122,9 @@ func (NodePlacement) SwaggerDoc() map[string]string {
 }
 
 var map_RegistrationHubConfiguration = map[string]string{
-	"autoApproveUsers": "AutoApproveUser represents a list of users that can auto approve CSR and accept client. If the credential of the bootstrap-hub-kubeconfig matches to the users, the cluster created by the bootstrap-hub-kubeconfig will be auto-registered into the hub cluster. This takes effect only when ManagedClusterAutoApproval feature gate is enabled.",
-	"featureGates":     "FeatureGates represents the list of feature gates for registration If it is set empty, default feature gates will be used. If it is set, featuregate/Foo is an example of one item in FeatureGates:\n  1. If featuregate/Foo does not exist, registration-operator will discard it\n  2. If featuregate/Foo exists and is false by default. It is now possible to set featuregate/Foo=[false|true]\n  3. If featuregate/Foo exists and is true by default. If a cluster-admin upgrading from 1 to 2 wants to continue having featuregate/Foo=false,\n \the can set featuregate/Foo=false before upgrading. Let's say the cluster-admin wants featuregate/Foo=false.",
+	"autoApproveUsers":    "AutoApproveUser represents a list of users that can auto approve CSR and accept client. If the credential of the bootstrap-hub-kubeconfig matches to the users, the cluster created by the bootstrap-hub-kubeconfig will be auto-registered into the hub cluster. This takes effect only when ManagedClusterAutoApproval feature gate is enabled.",
+	"cleanUpNotLeaderHub": "CleanUpNotLeaderHub represents whether to clean up the managed cluster resources if current hub is not the leader hub of the managed cluster.",
+	"featureGates":        "FeatureGates represents the list of feature gates for registration If it is set empty, default feature gates will be used. If it is set, featuregate/Foo is an example of one item in FeatureGates:\n  1. If featuregate/Foo does not exist, registration-operator will discard it\n  2. If featuregate/Foo exists and is false by default. It is now possible to set featuregate/Foo=[false|true]\n  3. If featuregate/Foo exists and is true by default. If a cluster-admin upgrading from 1 to 2 wants to continue having featuregate/Foo=false,\n \the can set featuregate/Foo=false before upgrading. Let's say the cluster-admin wants featuregate/Foo=false.",
 }
 
 func (RegistrationHubConfiguration) SwaggerDoc() map[string]string {
@@ -159,6 +160,26 @@ var map_WorkConfiguration = map[string]string{
 
 func (WorkConfiguration) SwaggerDoc() map[string]string {
 	return map_WorkConfiguration
+}
+
+var map_BootstrapKubeConfigFetcher = map[string]string{
+	"hubName": "HubName can be helpful in troubleshooting, but don't use it as a unique identifier of a hub.",
+	"secret":  "BootstrapKubeConfigFetcherSecretRef is the reference to the secret that contains the bootstrap kubeconfig.",
+	"server":  "BootstrapKubeConfigFetcherServer is the server that returns the bootstrap kubeconfig of a hub.",
+}
+
+func (BootstrapKubeConfigFetcher) SwaggerDoc() map[string]string {
+	return map_BootstrapKubeConfigFetcher
+}
+
+var map_BootstrapKubeConfigFetcherServer = map[string]string{
+	"url":         "URL is the url that returns the bootstrap kubeconfig of a hub.",
+	"caBundle":    "CABundle is the ca bundle to connect to the url.",
+	"tokenSecret": "TokenSecretRefer is the reference to the secret that contains the token to access the url.",
+}
+
+func (BootstrapKubeConfigFetcherServer) SwaggerDoc() map[string]string {
+	return map_BootstrapKubeConfigFetcherServer
 }
 
 var map_HubApiServerHostAlias = map[string]string{
@@ -235,10 +256,21 @@ var map_RegistrationConfiguration = map[string]string{
 	"clientCertExpirationSeconds": "clientCertExpirationSeconds represents the seconds of a client certificate to expire. If it is not set or 0, the default duration seconds will be set by the hub cluster. If the value is larger than the max signing duration seconds set on the hub cluster, the max signing duration seconds will be set.",
 	"featureGates":                "FeatureGates represents the list of feature gates for registration If it is set empty, default feature gates will be used. If it is set, featuregate/Foo is an example of one item in FeatureGates:\n  1. If featuregate/Foo does not exist, registration-operator will discard it\n  2. If featuregate/Foo exists and is false by default. It is now possible to set featuregate/Foo=[false|true]\n  3. If featuregate/Foo exists and is true by default. If a cluster-admin upgrading from 1 to 2 wants to continue having featuregate/Foo=false,\n \the can set featuregate/Foo=false before upgrading. Let's say the cluster-admin wants featuregate/Foo=false.",
 	"clusterAnnotations":          "ClusterAnnotations is annotations with the reserve prefix \"agent.open-cluster-management.io\" set on ManagedCluster when creating only, other actors can update it afterwards.",
+	"bootstrapKubeConfigFetchers": "BootstrapKubeConfigFetchers is a list of bootstrap kubeconfig fetchers that contains the information of how to fetch the bootstrap kubeconfig from a hub.",
 }
 
 func (RegistrationConfiguration) SwaggerDoc() map[string]string {
 	return map_RegistrationConfiguration
+}
+
+var map_SecretKeyRef = map[string]string{
+	"name":      "Name is the name of the secret.",
+	"namespace": "Namespace is the namespace of the secret.",
+	"key":       "Key is the key of the secret.",
+}
+
+func (SecretKeyRef) SwaggerDoc() map[string]string {
+	return map_SecretKeyRef
 }
 
 var map_ServerURL = map[string]string{

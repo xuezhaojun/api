@@ -73,6 +73,14 @@ type ManagedClusterSpec struct {
 	// running on the managed cluster; while it's fine to add/remove other taints from either hub cluser or managed cluster.
 	// +optional
 	Taints []Taint `json:"taints,omitempty"`
+
+	// +optional
+	BoostrapKubeconfigCandidates []SecretRef `json:"boostrapKubeconfigCandidates,omitempty"`
+}
+
+type SecretRef struct {
+	// +required
+	Name string
 }
 
 // ClientConfig represents the apiserver address of the managed cluster.

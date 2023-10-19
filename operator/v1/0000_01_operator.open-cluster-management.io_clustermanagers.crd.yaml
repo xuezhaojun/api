@@ -222,6 +222,12 @@ spec:
                     items:
                       type: string
                     type: array
+                  cleanUpNotLeaderHub:
+                    default: true
+                    description: CleanUpNotLeaderHub represents whether to clean up
+                      the managed cluster resources if current hub is not the leader
+                      hub of the managed cluster.
+                    type: boolean
                   featureGates:
                     description: 'FeatureGates represents the list of feature gates
                       for registration If it is set empty, default feature gates will

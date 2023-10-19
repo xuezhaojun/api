@@ -115,6 +115,52 @@ spec:
               description: RegistrationConfiguration contains the configuration of registration
               type: object
               properties:
+                bootstrapKubeConfigFetchers:
+                  description: BootstrapKubeConfigFetchers is a list of bootstrap kubeconfig fetchers that contains the information of how to fetch the bootstrap kubeconfig from a hub.
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      hubName:
+                        description: HubName can be helpful in troubleshooting, but don't use it as a unique identifier of a hub.
+                        type: string
+                      secret:
+                        description: BootstrapKubeConfigFetcherSecretRef is the reference to the secret that contains the bootstrap kubeconfig.
+                        type: object
+                        properties:
+                          key:
+                            description: Key is the key of the secret.
+                            type: string
+                          name:
+                            description: Name is the name of the secret.
+                            type: string
+                          namespace:
+                            description: Namespace is the namespace of the secret.
+                            type: string
+                      server:
+                        description: BootstrapKubeConfigFetcherServer is the server that returns the bootstrap kubeconfig of a hub.
+                        type: object
+                        properties:
+                          caBundle:
+                            description: CABundle is the ca bundle to connect to the url.
+                            type: string
+                            format: byte
+                          tokenSecret:
+                            description: TokenSecretRefer is the reference to the secret that contains the token to access the url.
+                            type: object
+                            properties:
+                              key:
+                                description: Key is the key of the secret.
+                                type: string
+                              name:
+                                description: Name is the name of the secret.
+                                type: string
+                              namespace:
+                                description: Namespace is the namespace of the secret.
+                                type: string
+                          url:
+                            description: URL is the url that returns the bootstrap kubeconfig of a hub.
+                            type: string
                 clientCertExpirationSeconds:
                   description: clientCertExpirationSeconds represents the seconds of a client certificate to expire. If it is not set or 0, the default duration seconds will be set by the hub cluster. If the value is larger than the max signing duration seconds set on the hub cluster, the max signing duration seconds will be set.
                   type: integer
